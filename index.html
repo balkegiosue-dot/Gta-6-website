@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEONIDA KOMPASS – GTA 6 Guides, Easter Eggs & Community-Funde</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #171a21;
+      --surface-hover: #1e222b;
+      --border: #282d38;
+      --text: #e6e8ec;
+      --muted: #949ba8;
+      --accent: #e15b64;
+      --accent-soft: rgba(225, 91, 100, 0.14);
+      --gold: #eab308;
+      --green: #22c55e;
+      --blue: #38bdf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: #13161c;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-wrap {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .brand-badge {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .brand-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .tab-btn:hover { color: var(--text); background: var(--surface); }
+    .tab-btn.active {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .search-box input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 240px;
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+
+    /* Sub-Filter Bar */
+    .filter-bar {
+      background: #12141a;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+    }
+    .filter-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 99px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .chip:hover, .chip.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Main Layout */
+    .container {
+      max-width: 1220px;
+      margin: 26px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 28px;
+    }
+    @media (max-width: 920px) {
+      .container { grid-template-columns: 1fr; }
+      .search-box input { width: 100%; }
+    }
+
+    /* Hero Banner */
+    .hero-card {
+      background: linear-gradient(135deg, #1b1f29 0%, #14171f 100%);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .hero-card h1 {
+      font-size: 24px;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .hero-card p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    /* Article Cards */
+    .article-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.12s, border-color 0.12s;
+    }
+    .card:hover {
+      background: var(--surface-hover);
+      border-color: #3a4152;
+      transform: translateY(-1px);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .cat-tag {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .cat-tag.mystery { background: rgba(56, 189, 248, 0.14); color: var(--blue); }
+    .cat-tag.guide { background: rgba(34, 197, 94, 0.14); color: var(--green); }
+    .cat-tag.world { background: rgba(234, 179, 8, 0.14); color: var(--gold); }
+
+    .card h2 {
+      font-size: 19px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    /* Full Article Reader */
+    .reader-view {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+    }
+    .back-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+    .reader-view h1 { font-size: 26px; margin-bottom: 10px; line-height: 1.3; }
+    .reader-meta { color: var(--muted); font-size: 13px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .reader-body h3 { font-size: 18px; margin: 20px 0 8px; color: #fff; }
+    .reader-body p { margin-bottom: 12px; color: #d1d5db; font-size: 15px; }
+    .reader-body ul { margin: 10px 0 16px 20px; color: #d1d5db; }
+    .reader-body li { margin-bottom: 6px; }
+    .info-callout {
+      background: var(--bg);
+      border-left: 3px solid var(--accent);
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .data-table th { background: var(--bg); color: #fff; }
+
+    /* Comment System with AI Auto-Pin */
+    .comments-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 14px 0 24px;
+    }
+    .comment-form input, .comment-form textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    .comment-form button {
+      align-self: flex-start;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .comment-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .comment-item.pinned {
+      border-color: var(--gold);
+      background: rgba(234, 179, 8, 0.05);
+    }
+    .pin-badge {
+      display: inline-block;
+      background: rgba(234, 179, 8, 0.18);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    /* Kurzclips (9:16 Feed) */
+    .shorts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 18px;
+    }
+    .short-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .short-frame {
+      aspect-ratio: 9 / 16;
+      background: #090a0d;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .short-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .short-info { padding: 12px 14px; }
+    .short-info h3 { font-size: 15px; margin-bottom: 4px; }
+    .short-info p { font-size: 12px; color: var(--muted); }
+
+    /* Sidebar Widgets */
+    aside { display: flex; flex-direction: column; gap: 20px; }
+    .widget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .widget h3 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .code-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .code-row:last-child { border-bottom: none; }
+    .code-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .mystery-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .mystery-item:last-child { border-bottom: none; }
+    .mystery-item strong { display: block; color: var(--blue); margin-bottom: 2px; }
+
+    .ad-box {
+      border: 1px dashed #3a4152;
+      background: #12141a;
+      text-align: center;
+      padding: 20px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 50px;
+      padding: 24px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: var(--muted); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--text); }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand" onclick="showTab('articles')">
+      <span class="brand-badge">GTA VI</span>
+      <span class="brand-title">LEONIDA KOMPASS</span>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="tab-btn active" id="btn-articles" onclick="showTab('articles')">Guides & Funde</button>
+      <button class="tab-btn" id="btn-mysteries" onclick="showTab('mysteries')">Aliens & Mythen</button>
+      <button class="tab-btn" id="btn-shorts" onclick="showTab('shorts')">Kurzclips (9:16)</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Suche: Alien, Code, Polizei..." oninput="renderArticles()" />
+    </div>
+  </div>
+</header>
+
+<div class="filter-bar" id="filterBar">
+  <div class="filter-inner">
+    <button class="chip active" onclick="setFilter('Alle', this)">Alle Beiträge</button>
+    <button class="chip" onclick="setFilter('Aliens & Mythen', this)">Aliens & Mythen</button>
+    <button class="chip" onclick="setFilter('Waffen & Polizei', this)">Waffen & Polizei</button>
+    <button class="chip" onclick="setFilter('Missionen & Codes', this)">Missionen & Codes</button>
+    <button class="chip" onclick="setFilter('Map & Tierwelt', this)">Map & Tierwelt</button>
+  </div>
+</div>
+
+<div class="container">
+  <main>
+    <!-- Hero Bereich -->
+    <div class="hero-card" id="heroBox">
+      <div class="hero-meta"><span class="live-dot"></span> Community-Datenbank & Auto-Feed</div>
+      <h1>Alle bekannten GTA 6 Geheimnisse, Alien-Hinweise & Spielmechaniken</h1>
+      <p>Von den mysteriösen Lichtern über den Grassrivers bis hin zu den Tresor-Codes in Kapitel 1, dem neuen Kofferraum-Inventar und allen 6 Regionen von Leonida.</p>
+    </div>
+
+    <!-- Artikel Übersicht -->
+    <div id="articleListView" class="article-grid"></div>
+
+    <!-- Einzelner Artikel + Kommentare -->
+    <div id="articleReaderView" class="reader-view hidden"></div>
+
+    <!-- Kurzclips Tab -->
+    <div id="shortsView" class="hidden">
+      <div class="hero-card">
+        <div class="hero-meta">Creator & Community Clips</div>
+        <h1>Aktuelle Kurzclips im Hochformat</h1>
+        <p>Kompakte Entdeckungen, Fundorte und Easter-Egg-Analysen aus der Community. Neue Clips werden automatisch über die <code>data.json</code>-Schnittstelle ergänzt.</p>
+      </div>
+      <div class="shorts-grid" id="shortsGrid"></div>
+    </div>
+  </main>
+
+  <!-- Rechte Seitenleiste -->
+  <aside>
+    <div class="widget">
+      <h3>Wichtige Tresor-Codes</h3>
+      <div class="code-row">
+        <span>Lab Fees (Haupttresor)</span>
+        <span class="code-pill">0420</span>
+      </div>
+      <div class="code-row">
+        <span>Hinterzimmer-Safe</span>
+        <span class="code-pill">7700</span>
+      </div>
+      <div class="code-row">
+        <span>Max. Waffen am Körper</span>
+        <span class="code-pill">2 Langwaffen</span>
+      </div>
+    </div>
+
+    <div class="widget">
+      <h3>Top-Mythen der Community</h3>
+      <div class="mystery-item">
+        <strong>Grüne Lichter in Grassrivers</strong>
+        Nachts zwischen 02:00 und 04:00 Uhr bei Nebel über den Sumpf-Funktürmen gesichtet.
+      </div>
+      <div class="mystery-item">
+        <strong>Unterwasser-Luke (Leonida Keys)</strong>
+        Metallische Struktur mit Seriennummer vor dem südlichen Riff – ähnlich der Luke aus GTA V.
+      </div>
+      <div class="mystery-item">
+        <strong>Der Skunk Ape von Leonida</strong>
+        Fußspuren und unheimliche Rufe nahe den verlassenen Luftkissenboot-Anlegern.
+      </div>
+    </div>
+
+    <!-- Werbe- & Affiliate-Platzhalter für später -->
+    <div class="widget">
+      <h3>Setup & Zubehör</h3>
+      <div class="ad-box" id="affiliateSlot">
+        <strong>Werbefläche / Partner-Empfehlung</strong><br />
+        Hier kannst du später deinen Amazon-Partnerlink (z. B. PS5 Controller / Guthaben) oder Google AdSense Code einfügen.
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <p>LEONIDA KOMPASS – Unabhängiges Fan- & Community-Projekt zu Grand Theft Auto VI.</p>
+  <p style="margin-top:8px;">
+    <a href="impressum.html">Impressum</a> |
+    <a href="datenschutz.html">Datenschutz</a>
+  </p>
+</footer>
+
+<script>
+  let currentCategory = "Alle";
+  let activeArticleId = null;
+
+  const defaultArticles = [
+    {
+      id: "aliens-ufos-leonida",
+      title: "Aliens, UFOs & die geheimnisvollen Lichter über den Grassrivers",
+      category: "Aliens & Mythen",
+      badgeClass: "mystery",
+      readTime: "4 Min. Lesezeit",
+      date: "Community-Analyse",
+      summary: "YouTuber und Easter-Egg-Jäger haben bereits mehrere Hinweise auf außerirdische Phänomene, abgestürzte Sonden und geheime Regierungs-Funktürme in Leonida entdeckt.",
+      content: `
+        <p>Wie schon in San Andreas und GTA V setzt Rockstar Games auch in Leonida stark auf versteckte Alien- und UFO-Mythen. Besonders die Sümpfe der <strong>Grassrivers</strong> sowie die tiefen Gewässer vor den <strong>Leonida Keys</strong> stehen im Fokus der Community.</p>
+        <h3>1. Die grünen Himmelslichter über den Grassrivers</h3>
+        <p>Mehrere Spieler und Creator berichten von lautlosen, grünlich schimmernden Lichtkugeln, die bei dichtem Nachtnebel zwischen <strong>02:00 und 04:00 Uhr</strong> hoch über den alten Wetter- und Funktürmen schweben. Nähert man sich mit einem Hubschrauber zu stark, fällt kurzzeitig die Bordelektronik aus.</p>
+        <h3>2. Die versunkene Unterwasser-Luke</h3>
+        <p>Vor der Südküste der Leonida Keys liegt auf dem Meeresgrund ein metallisches Wrackteil mit einer eingestanzten Zahlenreihe. In der Community gilt dies als direkte Anspielung auf die berühmte Unterwasser-Luke aus GTA V. Mit Taucherausrüstung lassen sich dort bei genauem Hinhören rhythmische Klopfgeräusche wahrnehmen.</p>
+        <h3>3. Geheime FIB- & Raumfahrt-Akten</h3>
+        <p>In verlassenen Beobachtungsposten am Rand der Sümpfe finden sich Radarschirme mit ungewöhnlichen Flugbahnen, die direkt aus dem Weltraum auf die Küste von Vice-Dale zusteuern.</p>
+        <div class="info-callout"><strong>Tipp für Jäger:</strong> Nutze das Nachtsichtgerät oder das Zielfernrohr eines Scharfschützengewehrs bei Gewitter – viele Lichtphänomene werden erst bei starker Bewölkung sichtbar.</div>
+      `
+    },
+    {
+      id: "skunk-ape-leonida-man",
+      title: "Skunk Ape (Bigfoot), Geisterschiff & Leonida-Man-Events",
+      category: "Aliens & Mythen",
+      badgeClass: "mystery",
+      readTime: "3 Min. Lesezeit",
+      date: "Easter-Egg-Guide",
+      summary: "Neben UFOs treibt in den Sümpfen der berüchtigte Skunk Ape sein Unwesen – und abgedrehte Zufallsereignisse sorgen für kuriose Begegnungen.",
+      content: `
+        <p>Leonida steckt voller Anspielungen auf echte urbane Legenden aus Florida und klassische Rockstar-Mythen.</p>
+        <h3>Der Skunk Ape in den Sümpfen</h3>
+        <ul>
+          <li><strong>Fundort:</strong> Dichte Mangrovenwälder nordwestlich der Hauptstraßen durch die Grassrivers.</li>
+          <li><strong>Hinweise:</strong> Riesige Fußabdrücke im Schlamm, zerbrochene Äste in zwei Metern Höhe und tiefe Brülllaute in der Dämmerung.</li>
+          <li><strong>Besonderheit:</strong> Ähnlich wie in Red Dead Redemption 2 und GTA V taucht die Kreatur nur für einen Sekundenbruchteil im Wärmebild oder im Nebel auf, bevor sie verschwindet.</li>
+        </ul>
+        <h3>Das versunkene Geisterschiff & Zufalls-Events</h3>
+        <p>Bei Vollmond erscheint an der felsigen Ostküste kurzzeitig die Silhouette eines alten Schmuggler-Schiffs im Nebel. Dazu kommen die sogenannten <strong>„Leonida-Man“-Events</strong> – völlig verrückte Zufallsbegegnungen am Straßenrand (z. B. Alligatoren im Swimmingpool oder skurrile Verfolgungsjagden), die direkt an echte Schlagzeilen angelehnt sind.</p>
+      `
+    },
+    {
+      id: "kapitel-1-tresor-codes",
+      title: "Kapitel 1 Komplett-Lösung & alle Tresor-Codes (Lab Fees)",
+      category: "Missionen & Codes",
+      badgeClass: "",
+      readTime: "5 Min. Lesezeit",
+      date: "Story-Walkthrough",
+      summary: "Alle 5 Story-Kapitel im Überblick plus die exakten Kombinationen für die beiden Safes in der Mission Lab Fees ohne langes Suchen.",
+      content: `
+        <p>Die Hauptstory rund um <strong>Lucia Caminos</strong> und <strong>Jason Duval</strong> gliedert sich in fünf große Kapitel, die euch vom Gefängnis bis in die höchsten Kreise von Vice City führen.</p>
+        <table class="data-table">
+          <tr><th>Kapitel</th><th>Schwerpunkt & Handlung</th></tr>
+          <tr><td><strong>Kapitel 1</strong></td><td>Lucias Entlassung, erste Überfälle in Vice-Dale & Aufbau des Unterschlupfs.</td></tr>
+          <tr><td><strong>Kapitel 2</strong></td><td>Verlagerung in die Grassrivers, Schmuggler-Routen & Luftkissenboot-Einsätze.</td></tr>
+          <tr><td><strong>Kapitel 3</strong></td><td>Konflikte mit Gangs und korrupten Behörden in Port Gellhorn.</td></tr>
+          <tr><td><strong>Kapitel 4</strong></td><td>Große Raubzüge im Zentrum von Vice City und den Leonida Keys.</td></tr>
+          <tr><td><strong>Kapitel 5</strong></td><td>Das große Finale zwischen Lucia, Jason und ihren Verfolgern.</td></tr>
+        </table>
+        <h3>Alle Safe-Codes in „Lab Fees“</h3>
+        <ul>
+          <li><strong>Haupttresor im Büro:</strong> Code <code>0420</code> (liegt als Notiz unter dem Aktenschrank).</li>
+          <li><strong>Versteckter Hinterzimmer-Safe:</strong> Code <code>7700</code> (für zusätzliche Bargeld-Bündel und seltene Waffenteile).</li>
+        </ul>
+      `
+    },
+    {
+      id: "waffen-kofferraum-polizei",
+      title: "Neues Waffen-System, Kofferraum-Inventar & 5 Polizei-Symbole",
+      category: "Waffen & Polizei",
+      badgeClass: "guide",
+      readTime: "4 Min. Lesezeit",
+      date: "Gameplay-Mechanik",
+      summary: "Warum du nicht mehr 30 Waffen in der Hosentasche trägst, wie dein Auto-Kofferraum funktioniert und was die neuen Polizei-Icons bedeuten.",
+      content: `
+        <p>GTA 6 übernimmt das realistische Tragesystem aus Red Dead Redemption 2 und passt es an moderne Schießereien an.</p>
+        <h3>Das neue Waffen-Limit</h3>
+        <ul>
+          <li><strong>Am Körper:</strong> Maximal <strong>2 Langwaffen</strong> (z. B. Sturmgewehr auf dem Rücken + Schrotflinte) sowie 2 Handfeuerwaffen/Gadgets.</li>
+          <li><strong>Der Kofferraum als Waffenkammer:</strong> Dein persönliches Fahrzeug speichert dein komplettes Arsenal. Vor einem großen Überfall musst du die passenden Waffen am Kofferraum ausrüsten.</li>
+        </ul>
+        <h3>Die 5 neuen Polizei-Erkennungssymbole</h3>
+        <p>Statt nur blind wegzufahren, zeigt dir das Fahndungssystem jetzt genau an, was die Cops über dich wissen:</p>
+        <ul>
+          <li><strong>Auge:</strong> Die Polizei hat direkten Sichtkontakt zu dir.</li>
+          <li><strong>Auto-Symbol:</strong> Dein Kennzeichen und Fahrzeugmodell sind zur Fahndung ausgeschrieben (Fahrzeugwechsel lässt das Symbol verschwinden).</li>
+          <li><strong>Personen-Silhouette:</strong> Dein Gesicht und deine Kleidung sind bekannt – zieh eine Maske auf oder wechsle das Outfit.</li>
+          <li><strong>Fadenkreuz / Waffe:</strong> Du wurdest bewaffnet gesehen – Einsatzkräfte schießen sofort.</li>
+          <li><strong>Radar-Welle:</strong> Polizeihubschrauber oder Spürhunde suchen aktiv dein Versteck ab.</li>
+        </ul>
+      `
+    },
+    {
+      id: "map-6-regionen-170-tiere",
+      title: "Alle 6 Regionen von Leonida, Tank-System & 170 Tierarten",
+      category: "Map & Tierwelt",
+      badgeClass: "world",
+      readTime: "4 Min. Lesezeit",
+      date: "Welt-Übersicht",
+      summary: "Von den Neon-Stränden in Vice-Dale bis zu den Sümpfen der Grassrivers: So funktioniert die riesige Spielwelt inklusive Benzin-Anzeige.",
+      content: `
+        <p>Der Bundesstaat <strong>Leonida</strong> ist in sechs deutlich unterschiedliche Gebiete unterteilt, die jeweils eigene Tiere, Fahrzeuge und Geheimnisse bieten:</p>
+        <ul>
+          <li><strong>Vice-Dale:</strong> Die pulsierende Metropole mit Ocean Beach, Nachtclubs, Hochhäusern und luxuriösen Yachten.</li>
+          <li><strong>Leonida Keys:</strong> Tropische Inselkette im Süden mit langen Brücken, Korallenriffen und Schmugglerbuchten.</li>
+          <li><strong>Grassrivers:</strong> Riesiges Sumpfgebiet voller Alligatoren, Flamingos, Luftkissenboote und mysteriöser Lichter.</li>
+          <li><strong>Port Gellhorn:</strong> Industrielle Küstenstadt mit Motels, Pfandhäusern, Bikern und Straßenrennen.</li>
+          <li><strong>Ambrosia:</strong> Ländliches Herzland mit Zuckerrohr-Plantagen, Kleinstädten und Offroad-Pisten.</li>
+          <li><strong>Mount Kalaga:</strong> Bewaldetes Berg- und Nationalparkgebiet im Norden zum Jagen, Wandern und Kajakfahren.</li>
+        </ul>
+        <h3>170 Tierarten & realistisches Tanken</h3>
+        <p>Über <strong>170 verschiedene Tierarten</strong> bevölkern Land, Luft und Meer – darunter Alligatoren, Waschbären, Flamingos, Haie, Delfine und Panther. Außerdem besitzen Fahrzeuge jetzt eine <strong>Tankanzeige</strong> (manuelles Tanken an Tankstellen bringt zusätzliche Reichweite und kleine Boni) sowie ein 3D-GPS mit dynamischen Umleitungen bei Staus.</p>
+      `
+    }
+  ];
+
+  const defaultShorts = [
+    {
+      title: "UFO-Lichter über den Grassrivers (03:00 Uhr Spot)",
+      creator: "Community-Fund #01",
+      desc: "So findest du die grünen Lichter über dem alten Funkturm im Sumpf.",
+      youtubeId: ""
+    },
+    {
+      title: "Tresor-Codes 0420 & 7700 in 30 Sekunden",
+      creator: "Quick-Guide",
+      desc: "Beide Safes in Kapitel 1 direkt knacken ohne den Raum abzusuchen.",
+      youtubeId: ""
+    },
+    {
+      title: "Unterwasser-Luke vor den Leonida Keys",
+      creator: "Easter-Egg-Jäger",
+      desc: "Tauchspot südlich der Hauptbrücke mit den mysteriösen Klopfzeichen.",
+      youtubeId: ""
+    }
+  ];
+
+  let articles = [...defaultArticles];
+  let shorts = [...defaultShorts];
+
+  // Prüft im Hintergrund, ob ein Bot neue Einträge in data.json abgelegt hat
+  async function loadBotData() {
+    try {
+      const res = await fetch("data
